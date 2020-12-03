@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 const SpanGrid = () => {
   const Body = styled.div`
     display: grid;

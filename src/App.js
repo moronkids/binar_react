@@ -17,8 +17,11 @@ import Clamping from './components/Clamping';
 import Respect from './components/Respect';
 import Challenge1 from './components/Challenge1';
 import Challenge2 from './components/Challenge2';
+import Challenge3 from './components/Challenge3';
 import LiList from './components/Challenge2/LiList';
 import Functional from './components/Challenge2/Functional';
+import TodoList1 from './components/todolist/Phase1';
+
 function App() {
   const { token } = useContext(firebaseAuth); //destructuring
   // if ("spinner" in localStorage) {
@@ -45,10 +48,13 @@ console.log(token, "test")
         {/* <Route exact path='/signin' component={SignInx} /> */}
         {/* <Route exact path='/home' component={Home} /> */}
         <Route exact path="/challange1" render={(props) => <Challenge1 />}></Route>
-        <Route exact path="/challange2" render={(props) =>  <Challenge2 />}></Route>
+        <Route exact path="/challange2" render={(props) => <Challenge2 />}></Route>
+        <Route exact path="/challange3" render={(props) => <Challenge3 />}></Route>
         <Route exact path="/1" render={(props) => <SuperCentered />}></Route>
         <Route exact path="/challenge2/1" render={(props) => <LiList />}></Route>
         <Route exact path="/challenge2/2" render={(props) => <Functional />}></Route>
+        <Route exact path="/challenge3/1" render={(props) => <TodoList1 />}></Route>
+        <Route exact path="/challenge3/2" render={(props) => <Functional />}></Route>
         <Route exact path="/2" render={(props) => <Pancake />}></Route>
         <Route exact path="/3" render={(props) => <Sidebar />}></Route>
         <Route exact path="/4" render={(props) => <Stack />}></Route>

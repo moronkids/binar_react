@@ -28,6 +28,8 @@ const Home = (props) => {
         <Link to="/challange1">01. Challange 1</Link>
         <br />
         <Link to="/challange2">02. Challange 2</Link>
+        <br />
+        <Link to="/challange3">03. Challange 3</Link>
       </Wrapper>
       <Footer></Footer>
     </div>

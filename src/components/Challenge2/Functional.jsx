@@ -1,6 +1,6 @@
 import React from "react"
 import Navbar from "../../components/Navbar"
-
+import Footer from "../../components/Footer"
 const Functional = () => {
   return (
     <div>
@@ -41,6 +41,7 @@ const Functional = () => {
           <li>9. Gamol Studio</li>
         </ul>
       </div>
+      <Footer />
     </div>
   )
 }

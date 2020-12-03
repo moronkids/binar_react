@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import styles from "../assets/clamping.module.css"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 const Clamping = () => {
   return (
     <Fragment>

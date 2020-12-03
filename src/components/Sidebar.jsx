@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import styled from "styled-components"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 const Sidebar = () => {
   const DivSidebar = styled.div`
     & {
@@ -38,6 +39,7 @@ const Sidebar = () => {
           nulla! Natus, iure eveniet ex iusto tempora animi quibusdam porro?
         </PContent>
       </Body>
+      <Footer></Footer>
     </Fragment>
   )
 }

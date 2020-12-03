@@ -8,12 +8,14 @@ import { overlayProvider } from "../Provider/OverlayProvider"
 const Signin = (props) => {
   const [loaded, setLoaded] = useState(true)
   const spinner = useContext(overlayProvider)
+
   const { handleSignin, inputs, setInputs, errors, token } = useContext(firebaseAuth)
 
-  console.log(token, spinner, "detrr")
+  console.log(token, spinner, loaded, "detrr")
   if ("spinner" in localStorage) {
     console.log(loaded, "loading true or?")
     setLoaded(!loaded)
+    console.log(token, spinner, loaded, "detrr")
     localStorage.removeItem("spinner")
   }
   const handleSubmit = (e) => {

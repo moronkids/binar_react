@@ -1,5 +1,6 @@
 import React from "react"
 import Navbar from "../../components/Navbar"
+import Footer from "../../components/Footer"
 const LiList = () => {
   return (
     <div>
@@ -21,6 +22,7 @@ const LiList = () => {
           <li>9. React Router Dom</li>
         </ul>
       </div>
+      <Footer />
     </div>
   )
 }

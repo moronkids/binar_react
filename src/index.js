@@ -5,11 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './Provider/AuthProvider'
 import { BrowserRouter } from 'react-router-dom'
+import OverlayProvider from "./Provider/OverlayProvider"
 ReactDOM.render(
   <BrowserRouter>
+  <OverlayProvider>
     <AuthProvider>
       <App />
     </AuthProvider>
+  </OverlayProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );

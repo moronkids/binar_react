@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import { overlayProvider } from "../Provider/OverlayProvider"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
-
+import Footer from "../components/Footer"
 const Navbar = () => {
   const Body = styled.div`
     & {

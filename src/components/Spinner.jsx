@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import Navbar from "../components/Navbar"
 import { keyframes } from "styled-components"
-
+import Footer from "../components/Footer"
 const load3 = keyframes`
   0% {
     -webkit-transform: rotate(0deg);

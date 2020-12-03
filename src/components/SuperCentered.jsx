@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { css } from "styled-components"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
 const SuperCentered = () => {
   const DivParent = styled.div`
     & {
