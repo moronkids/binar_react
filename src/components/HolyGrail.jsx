@@ -1,5 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
 import styled from "styled-components"
+import Navbar from "../components/Navbar"
 const HolyGrail = () => {
   const Body = styled.body`
     & {
@@ -51,15 +52,19 @@ const HolyGrail = () => {
   `
 
   return (
-    <Body>
-      <Header>
-        <h1>Header.com</h1>
-      </Header>
-      <LeftSidebar>Left Sidebar</LeftSidebar>
-      <Main></Main>
-      <RightSidebar></RightSidebar>
-      <Footer>Footer Content — Header.com 2020</Footer>
-    </Body>
+    <Fragment>
+      <Navbar></Navbar>
+      <Body>
+        <Header>
+          <h1>Header.com</h1>
+        </Header>
+        <LeftSidebar>Left Sidebar</LeftSidebar>
+        <Main></Main>
+        <RightSidebar></RightSidebar>
+        <Footer>Footer Content — Header.com 2020</Footer>
+      </Body>
+      <Footer></Footer>
+    </Fragment>
   )
 }
 

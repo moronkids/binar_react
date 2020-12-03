@@ -1,5 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
 import styled from "styled-components"
+import Navbar from "../components/Navbar"
 const Sidebar = () => {
   const DivSidebar = styled.div`
     & {
@@ -23,18 +24,21 @@ const Sidebar = () => {
     }
   `
   return (
-    <Body>
-      <DivSidebar>
-        Min: 150px
-        <br />
-        Max: 25%
-      </DivSidebar>
-      <PContent>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla
-        architecto maxime modi nisi. Quas saepe dolorum, architecto quia fugit nulla!
-        Natus, iure eveniet ex iusto tempora animi quibusdam porro?
-      </PContent>
-    </Body>
+    <Fragment>
+      <Navbar></Navbar>
+      <Body>
+        <DivSidebar>
+          Min: 150px
+          <br />
+          Max: 25%
+        </DivSidebar>
+        <PContent>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis nulla
+          architecto maxime modi nisi. Quas saepe dolorum, architecto quia fugit
+          nulla! Natus, iure eveniet ex iusto tempora animi quibusdam porro?
+        </PContent>
+      </Body>
+    </Fragment>
   )
 }
 

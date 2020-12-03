@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Navbar from "../components/Navbar"
 const SpanGrid = () => {
   const Body = styled.div`
     display: grid;
@@ -33,13 +34,17 @@ const SpanGrid = () => {
     }
   `
   return (
-    <Body>
-      {/**bukan body element html, tapi ini sekedar penamaan component */}
-      <DivSpan12>Span 12</DivSpan12>
-      <DivSpan6>Span 6</DivSpan6>
-      <DivSpan4>Span 4</DivSpan4>
-      <DivSpan2>Span 2</DivSpan2>
-    </Body>
+    <React.Fragment>
+      <Navbar></Navbar>
+      <Body>
+        {/**bukan body element html, tapi ini sekedar penamaan component */}
+        <DivSpan12>Span 12</DivSpan12>
+        <DivSpan6>Span 6</DivSpan6>
+        <DivSpan4>Span 4</DivSpan4>
+        <DivSpan2>Span 2</DivSpan2>
+      </Body>
+      <Footer></Footer>
+    </React.Fragment>
   )
 }
 

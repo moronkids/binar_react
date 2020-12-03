@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Navbar from "../components/Navbar"
 const Ram = () => {
   const Body = styled.div`
     & {
@@ -18,12 +19,16 @@ const Ram = () => {
     }
   `
   return (
-    <Body>
-      <Div>1</Div>
-      <Div>2</Div>
-      <Div>3</Div>
-      <Div>4</Div>
-    </Body>
+    <div>
+      <Navbar></Navbar>
+      <Body>
+        <Div>1</Div>
+        <Div>2</Div>
+        <Div>3</Div>
+        <Div>4</Div>
+      </Body>
+      <Footer></Footer>
+    </div>
   )
 }
 

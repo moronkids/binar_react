@@ -1,6 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-
+import Navbar from "../components/Navbar"
 const Pancake = () => {
   const DivParent = styled.div`
     & {
@@ -21,11 +21,13 @@ const Pancake = () => {
   `
   return (
     <div>
+      <Navbar></Navbar>
       <DivParent>
         <DivChild>1</DivChild>
         <DivChild>2</DivChild>
         <DivChild>3</DivChild>
       </DivParent>
+      <Footer></Footer>
     </div>
   )
 }

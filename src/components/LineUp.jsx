@@ -1,5 +1,6 @@
-import React from "react"
+import React, { Fragment } from "react"
 import styled from "styled-components"
+import Navbar from "../components/Navbar"
 const LineUp = () => {
   const Body = styled.body`
     & {
@@ -35,23 +36,26 @@ const LineUp = () => {
     }
   `
   return (
-    <Body>
-      <Card>
-        <H1>Title - Card 1</H1>
-        <p>Medium length description. Let's add a few more words here.</p>
-        <Visual></Visual>
-      </Card>
-      <Card>
-        <H1>Title - Card 2</H1>
-        <p>Medium length description. Let's add a few more words here.</p>
-        <Visual></Visual>
-      </Card>
-      <Card>
-        <H1>Title - Card 3</H1>
-        <p>Medium length description. Let's add a few more words here.</p>
-        <Visual></Visual>
-      </Card>
-    </Body>
+    <Fragment>
+      <Navbar></Navbar>
+      <Body>
+        <Card>
+          <H1>Title - Card 1</H1>
+          <p>Medium length description. Let's add a few more words here.</p>
+          <Visual></Visual>
+        </Card>
+        <Card>
+          <H1>Title - Card 2</H1>
+          <p>Medium length description. Let's add a few more words here.</p>
+          <Visual></Visual>
+        </Card>
+        <Card>
+          <H1>Title - Card 3</H1>
+          <p>Medium length description. Let's add a few more words here.</p>
+          <Visual></Visual>
+        </Card>
+      </Body>
+    </Fragment>
   )
 }
 

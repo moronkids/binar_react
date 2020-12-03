@@ -14,7 +14,11 @@ import SpanGrid from './components/SpanGrid';
 import Ram from './components/Ram';
 import LineUp from './components/LineUp';
 import Clamping from './components/Clamping';
-
+import Respect from './components/Respect';
+import Challenge1 from './components/Challenge1';
+import Challenge2 from './components/Challenge2';
+import LiList from './components/Challenge2/LiList';
+import Functional from './components/Challenge2/Functional';
 function App() {
   const { token } = useContext(firebaseAuth); //destructuring
   // if ("spinner" in localStorage) {
@@ -23,25 +27,40 @@ function App() {
   // }
 console.log(token, "test")
   return (
-    <> {/*jsx wajib ada wrapper atau div kosong atau tag kosong*/}
+    <>
+      {" "}
+      {/*jsx wajib ada wrapper atau div kosong atau tag kosong*/}
       {/* switch allows switching which components render.  */}
-      <Switch> {/* ini gaya penulisan dari react router dom, yang memumngkinkan agar route bisa berjalan* /}
+      <Switch>
+        {" "}
+        {/* ini gaya penulisan dari react router dom, yang memumngkinkan agar route bisa berjalan* /}
         {/* route allows you to render by url path */}
-        <Route exact path='/' render={(props) => token === null && !('token' in localStorage) ? <SignInx/> : <Home/>} />
+        <Route
+          exact
+          path="/"
+          render={(props) =>
+            token === null && !("token" in localStorage) ? <SignInx /> : <Home />
+          }
+        />
         {/* <Route exact path='/signin' component={SignInx} /> */}
         {/* <Route exact path='/home' component={Home} /> */}
-        <Route exact path="/1" render={(props) => <SuperCentered/>}></Route>
-        <Route exact path="/2" render={(props) => <Pancake/>}></Route>
-        <Route exact path="/3" render={(props) => <Sidebar/>}></Route>
-        <Route exact path="/4" render={(props) => <Stack/>}></Route>
-        <Route exact path="/5" render={(props) => <HolyGrail/>}></Route>
-        <Route exact path="/6" render={(props) => <SpanGrid/>}></Route>
-        <Route exact path="/7" render={(props) => <Ram/>}></Route>
-        <Route exact path="/8" render={(props) => <LineUp/>}></Route>
-        <Route exact path="/9" render={(props) => <Clamping/>}></Route>
+        <Route exact path="/challange1" render={(props) => <Challenge1 />}></Route>
+        <Route exact path="/challange2" render={(props) =>  <Challenge2 />}></Route>
+        <Route exact path="/1" render={(props) => <SuperCentered />}></Route>
+        <Route exact path="/challenge2/1" render={(props) => <LiList />}></Route>
+        <Route exact path="/challenge2/2" render={(props) => <Functional />}></Route>
+        <Route exact path="/2" render={(props) => <Pancake />}></Route>
+        <Route exact path="/3" render={(props) => <Sidebar />}></Route>
+        <Route exact path="/4" render={(props) => <Stack />}></Route>
+        <Route exact path="/5" render={(props) => <HolyGrail />}></Route>
+        <Route exact path="/6" render={(props) => <SpanGrid />}></Route>
+        <Route exact path="/7" render={(props) => <Ram />}></Route>
+        <Route exact path="/8" render={(props) => <LineUp />}></Route>
+        <Route exact path="/9" render={(props) => <Clamping />}></Route>
+        <Route exact path="/10" render={(props) => <Respect />}></Route>
       </Switch>
     </>
-  );
+  )
 }
 
 export default App;
