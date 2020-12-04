@@ -20,7 +20,7 @@ const Footer = () => {
                   required
                 />
                 <button
-                  className="bg-blue-600 text-gray-200 px-5 py-2 rounded shadow "
+                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                   //   style={{ marginLeft: 7.8 }}
                 >
                   Sign Up
@@ -30,9 +30,9 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex items-center justify-between py-4">
-          <p className="text-blue-500">All rights reserved</p>
+          {/* <p className="text-blue-500">All rights reserved</p> */}
           <p className="inline-flex text-blue-500 px-2 pt-6">
-            Built with
+            {/* Built with */}
             <svg
               fill="#e53e3e"
               viewBox="0 0 24 24"
@@ -46,7 +46,7 @@ const Footer = () => {
                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
               />
             </svg>
-            by Mohammed Ibrahim(Jermine Junior).
+            {/* by Mohammed Ibrahim(Jermine Junior). */}
           </p>
           <div className="flex items-center">
             <a href="#">

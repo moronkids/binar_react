@@ -1,7 +1,6 @@
 import React from "react"
 import styled, { css } from "styled-components"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
 const SuperCentered = () => {
   const DivParent = styled.div`
     & {
@@ -28,11 +27,11 @@ const SuperCentered = () => {
   `
   return (
     <div>
-      <Navbar></Navbar>
-      <DivParent>
-        <DivChild>:)</DivChild>
-      </DivParent>
-      <Footer></Footer>
+      <Wrapper>
+        <DivParent>
+          <DivChild>:)</DivChild>
+        </DivParent>
+      </Wrapper>
     </div>
   )
 }

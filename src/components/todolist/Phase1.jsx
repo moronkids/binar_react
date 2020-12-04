@@ -1,103 +1,167 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Navbar from "../../components/Navbar"
-const Phase1 = () => {
-  const [todo, setTodo] = useState("")
-  const [arr, setArr] = useState([])
-  const [index, setIndex] = useState(0)
+import Main from "../../components/Main"
+import Footer from "../../components/Footer"
+import styled from "styled-components"
+import Wrapper from "../../components/Layout"
+import axios from "../../axios"
 
+import firebaseconfig from "../../firebase/FireBaseIndex"
+// import firebase from "firebase"
+import Firebase from "firebase"
+// const Wrapper = styled.div`
+//   & {
+//     min-height: calc(100vh - 33.57972544878564vh);
+//   }
+// `
+import { db } from "../../firebase/FireBaseIndex"
+// Initialize Firebase
+const Phase1 = () => {
+  // const firebase = firebase.database()
+  var firebase = require("firebase/app")
+  require("firebase/auth")
+  require("firebase/database")
+  const [todo, setTodo] = useState("")
+  const [arr, setArr] = useState([[{ id: 1 }, { name: "sulis", status: true }]])
+  const [index, setIndex] = useState(0)
+  const inputRef = useRef(null)
   const handleChange = (e) => {
     const { name, value } = e.target
     console.log(name, value, todo)
     // // console.log(todo)
     setTodo(value)
+    // inputEl.current.focus()
+    console.log(inputRef)
   }
-  const submit = () => {
-    setArr((prev) => [...arr, { name: todo, status: false }])
+
+  useEffect(async () => {
+    const result = await axios.get("/todolist.json")
+    if (arr.length > 0) {
+      var arrx = await Object.keys(result.data).map((key) => [
+        { id: key },
+        result.data[key],
+      ])
+      // await setArr((prev) => [...arr, result.data])
+      setArr(arrx)
+    }
+  }, [])
+
+  const recall = async (e) => {
+    const result = await axios.get("/todolist.json")
+    var arrx = Object.keys(result.data).map((key) => [{ id: key }, result.data[key]])
+    // await setArr((prev) => [...arr, result.data])
+    setArr(arrx)
+  }
+  const handleRemove = (x) => {
+    let userRef = db.ref("todolist/" + x)
+    userRef.remove()
+  }
+  const submit = (e) => {
+    // setArr((prev) => [...arr, { name: todo, status: false }])
     //   setArr([...arr, todo])
     console.log(arr)
     setIndex(index + 1)
+
+    e.preventDefault()
+    const todox = {
+      name: todo,
+      status: false,
+    }
+    axios
+      .post("/todolist.json", todox)
+      .then((response) => {
+        recall(todox)
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("error")
+      })
   }
-  const removeKey = (e) => {
-    console.log(arr, e)
+  const removeKey = (e, x) => {
+    console.log(arr, arr[x][0]["id"], e, "der")
+    let userId = arr[x][0]["id"]
     const newTodos = arr.filter((item) => item !== arr[e])
-    console.log(newTodos)
+    // let userRef = firebasfirebaseconfigeConfig.database.ref("todolist/" + userId)
+    // userRef.remove()
     setArr(newTodos)
+    handleRemove(userId)
   }
 
-  const status = (e) => {
+  const status = (e, x) => {
     const change = [...arr]
     console.log(change[e])
-    change[e]["status"] = !change[e]["status"]
+    change[e][1]["status"] = !change[e][1]["status"]
+    let userRef = db.ref("todolist/" + change[e][0]["id"])
+    userRef.update({ status: change[e][1]["status"] })
     setArr(change)
   }
+  console.log(arr)
   return (
     <div>
-      <Navbar></Navbar>
-      <div className="h-100 w-full flex items-center justify-center bg-green-900-lightest font-sans">
-        <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
-          <div className="mb-4">
-            <h1 className="">Todo List</h1>
-            <div className="flex mt-4">
-              <input
-                name="todoText"
-                onChange={(e) => {
-                  handleChange(e)
-                }}
-                placeholder="Todo Text"
-                value={todo}
-                className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
-                placeholder="Add Todo"
-              />
-              <button
-                onClick={() => submit()}
-                name="button"
-                className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-green-900"
-              >
-                Add
-              </button>
-            </div>
-          </div>
-
-          <div>
-            {Object.keys(arr).map((keyName, i) => (
-              <div id={keyName} className="flex mb-4 items-center">
-                {arr[keyName]["status"] ? (
-                  <p className="w-full line-through text-green-400 ">
-                    {arr[keyName]["name"]}
-                  </p>
-                ) : (
-                  <p className="w-full text-grey-darkest">{arr[keyName]["name"]}</p>
-                )}
-
+      {/* <Navbar /> */}
+      <Wrapper>
+        <div className="h-100 w-full flex items-center justify-center bg-green-900-lightest font-sans">
+          <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+            <div className="mb-4">
+              <h1 className="">Todo List</h1>
+              <div className="flex mt-4">
+                <input
+                  name="todoText"
+                  onChange={(e) => {
+                    handleChange(e)
+                  }}
+                  ref={inputRef}
+                  placeholder="Todo Text"
+                  value={todo}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                  placeholder="Add Todo"
+                />
                 <button
-                  onClick={() => status(i)}
-                  className="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-400 border-green hover:bg-green-400"
+                  onClick={(e) => submit(e)}
+                  name="button"
+                  className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-green-900"
                 >
-                  {arr[keyName]["status"] ? "Done" : "unDone"}
-                </button>
-                <button
-                  onClick={() => removeKey(i)}
-                  className="flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
-                >
-                  Remove
+                  Add
                 </button>
               </div>
-            ))}
+            </div>
 
-            {/* <div className="flex mb-4 items-center">
-              <p className="w-full line-through text-green-400">
-                Submit Todo App Component to Tailwind Components
-              </p>
-              <button className="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                Not Done
-              </button>
-              <button className="flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400">
-                Remove
-              </button>
-            </div> */}
+            <div>
+              {console.log(arr, "asuuu")}
+              {arr.length > 0
+                ? Object.keys(arr).map((keyName, i) => (
+                    <div id={keyName} className="flex mb-4 items-center">
+                      {console.log(arr[i][1]["status"], "test")}
+                      {arr[i][1]["status"] ? (
+                        <p className="w-full line-through text-green-400 ">
+                          {arr[i][1]["name"]}
+                        </p>
+                      ) : (
+                        <p className="w-full text-grey-darkest">
+                          {arr[i][1]["name"]}
+                        </p>
+                      )}
+
+                      <button
+                        onClick={() => status(i)}
+                        className="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-400 border-green hover:bg-green-400"
+                      >
+                        {arr[i][1]["status"] ? "Done" : "unDone"}
+                      </button>
+                      <button
+                        onClick={() => removeKey(keyName, i)}
+                        className="flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))
+                : ""}
+            </div>
           </div>
         </div>
-      </div>
+      </Wrapper>
+      {/* <Footer></Footer> */}
     </div>
   )
 }

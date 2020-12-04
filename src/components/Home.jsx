@@ -9,7 +9,7 @@ import Footer from "../components/Footer"
 const Home = (props) => {
   const Wrapper = styled.div`
     & {
-      height: calc(100vh - 33.57972544878564vh);
+      min-height: calc(100vh - 33.57972544878564vh);
     }
   `
 

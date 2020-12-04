@@ -1,7 +1,6 @@
 import React, { Fragment } from "react"
 import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
 const HolyGrail = () => {
   const Body = styled.body`
     & {
@@ -54,17 +53,17 @@ const HolyGrail = () => {
 
   return (
     <Fragment>
-      <Navbar></Navbar>
-      <Body>
-        <Header>
-          <h1>Header.com</h1>
-        </Header>
-        <LeftSidebar>Left Sidebar</LeftSidebar>
-        <Main></Main>
-        <RightSidebar></RightSidebar>
-        <Footer>Footer Content — Header.com 2020</Footer>
-      </Body>
-      <Footer></Footer>
+      <Wrapper>
+        <Body>
+          <Header>
+            <h1>Header.com</h1>
+          </Header>
+          <LeftSidebar>Left Sidebar</LeftSidebar>
+          <Main></Main>
+          <RightSidebar></RightSidebar>
+          <Footer>Footer Content — Header.com 2020</Footer>
+        </Body>
+      </Wrapper>
     </Fragment>
   )
 }

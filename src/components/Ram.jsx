@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
 const Ram = () => {
   const Body = styled.div`
     & {
@@ -21,14 +20,14 @@ const Ram = () => {
   `
   return (
     <div>
-      <Navbar></Navbar>
-      <Body>
-        <Div>1</Div>
-        <Div>2</Div>
-        <Div>3</Div>
-        <Div>4</Div>
-      </Body>
-      <Footer></Footer>
+      <Wrapper>
+        <Body>
+          <Div>1</Div>
+          <Div>2</Div>
+          <Div>3</Div>
+          <Div>4</Div>
+        </Body>
+      </Wrapper>
     </div>
   )
 }

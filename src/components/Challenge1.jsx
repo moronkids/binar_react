@@ -1,11 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
+
 const Challenge1 = () => {
   return (
-    <div>
-      <Navbar></Navbar>
+    <Wrapper>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 container content-center">
         <Link to="/1">01. Super Centered</Link>
         <br />
@@ -27,8 +26,7 @@ const Challenge1 = () => {
         <br />
         <Link to="/10">10. Respect for Aspect</Link>
       </div>
-      <Footer></Footer>
-    </div>
+    </Wrapper>
   )
 }
 

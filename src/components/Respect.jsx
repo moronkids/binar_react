@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
+
 const Respect = () => {
   const Body = styled.div`
     & {
@@ -34,18 +34,18 @@ const Respect = () => {
   `
   return (
     <Fragment>
-      <Navbar></Navbar>
-      <Body>
-        <Card>
-          <H1>Title Here</H1>
-          <Visual></Visual>
-          <p>
-            Descriptive Text. Lorem ipsum dolor sit, amet consectetur adipisicing
-            elit. Sed est error repellat veritatis.
-          </p>
-        </Card>
-      </Body>
-      <Footer></Footer>
+      <Wrapper>
+        <Body>
+          <Card>
+            <H1>Title Here</H1>
+            <Visual></Visual>
+            <p>
+              Descriptive Text. Lorem ipsum dolor sit, amet consectetur adipisicing
+              elit. Sed est error repellat veritatis.
+            </p>
+          </Card>
+        </Body>
+      </Wrapper>
     </Fragment>
   )
 }

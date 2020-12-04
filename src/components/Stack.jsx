@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import Wrapper from "../components/Layout"
 const Stack = () => {
   const Body = styled.body`
     & {
@@ -33,8 +32,7 @@ const Stack = () => {
     }
   `
   return (
-    <>
-      <Navbar></Navbar>
+    <Wrapper>
       <Body>
         <Header>
           <h1>Header.com</h1>
@@ -42,8 +40,7 @@ const Stack = () => {
         <Main></Main>
         <Footer>Footer Content — Header.com 2020</Footer>
       </Body>
-      <Footer></Footer>
-    </>
+    </Wrapper>
   )
 }
 
