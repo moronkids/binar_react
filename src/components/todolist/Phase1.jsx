@@ -10,7 +10,7 @@ const Phase1 = () => {
   const [todo, setTodo] = useState("")
   const [arr, setArr] = useState([[{ id: 1 }, { name: "sulis", status: true }]])
   const [index, setIndex] = useState(0)
-  const inputRef = useRef(null)
+  const inputRef = useRef("tes")
   const handleChange = (e) => {
     const { name, value } = e.target
     setTodo(value)
@@ -38,12 +38,11 @@ const Phase1 = () => {
     userRef.remove()
   }
   const submit = (e) => {
-    console.log(arr)
-    setIndex(index + 1)
-
+    let copy = JSON.parse(JSON.stringify(todo))
+    setTodo("")
     e.preventDefault()
     const todox = {
-      name: todo,
+      name: copy,
       status: false,
     }
     axios
@@ -86,7 +85,6 @@ const Phase1 = () => {
                   onChange={(e) => {
                     handleChange(e)
                   }}
-                  ref={inputRef}
                   placeholder="Todo Text"
                   value={todo}
                   className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
@@ -103,7 +101,7 @@ const Phase1 = () => {
             </div>
 
             <div>
-              {console.log(arr, "asuuu")}
+              {/* {console.log(arr, "asuuu")} */}
               {arr.length > 0
                 ? Object.keys(arr).map((keyName, i) => (
                     <div id={keyName} className="flex mb-4 items-center">
