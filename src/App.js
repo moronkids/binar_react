@@ -21,6 +21,7 @@ import Challenge3 from './components/Challenge3';
 import LiList from './components/Challenge2/LiList';
 import Functional from './components/Challenge2/Functional';
 import TodoList1 from './components/todolist/Phase1';
+import PracticeState from './components/todolist/PracticeState';
 
 function App() {
   const { token } = useContext(firebaseAuth); //destructuring
@@ -54,7 +55,7 @@ console.log(token, "test")
         <Route exact path="/challenge2/1" render={(props) => <LiList />}></Route>
         <Route exact path="/challenge2/2" render={(props) => <Functional />}></Route>
         <Route exact path="/challenge3/1" render={(props) => <TodoList1 />}></Route>
-        <Route exact path="/challenge3/2" render={(props) => <Functional />}></Route>
+        <Route exact path="/challenge3/2" render={(props) => <PracticeState />}></Route>
         <Route exact path="/2" render={(props) => <Pancake />}></Route>
         <Route exact path="/3" render={(props) => <Sidebar />}></Route>
         <Route exact path="/4" render={(props) => <Stack />}></Route>

@@ -1,23 +1,9 @@
 import React, { useState, useRef, useEffect } from "react"
-import Navbar from "../../components/Navbar"
-import Main from "../../components/Main"
-import Footer from "../../components/Footer"
-import styled from "styled-components"
 import Wrapper from "../../components/Layout"
 import axios from "../../axios"
-
-import firebaseconfig from "../../firebase/FireBaseIndex"
-// import firebase from "firebase"
-import Firebase from "firebase"
-// const Wrapper = styled.div`
-//   & {
-//     min-height: calc(100vh - 33.57972544878564vh);
-//   }
-// `
 import { db } from "../../firebase/FireBaseIndex"
-// Initialize Firebase
+
 const Phase1 = () => {
-  // const firebase = firebase.database()
   var firebase = require("firebase/app")
   require("firebase/auth")
   require("firebase/database")
@@ -27,10 +13,7 @@ const Phase1 = () => {
   const inputRef = useRef(null)
   const handleChange = (e) => {
     const { name, value } = e.target
-    console.log(name, value, todo)
-    // // console.log(todo)
     setTodo(value)
-    // inputEl.current.focus()
     console.log(inputRef)
   }
 
@@ -41,7 +24,6 @@ const Phase1 = () => {
         { id: key },
         result.data[key],
       ])
-      // await setArr((prev) => [...arr, result.data])
       setArr(arrx)
     }
   }, [])
@@ -49,7 +31,6 @@ const Phase1 = () => {
   const recall = async (e) => {
     const result = await axios.get("/todolist.json")
     var arrx = Object.keys(result.data).map((key) => [{ id: key }, result.data[key]])
-    // await setArr((prev) => [...arr, result.data])
     setArr(arrx)
   }
   const handleRemove = (x) => {
@@ -57,8 +38,6 @@ const Phase1 = () => {
     userRef.remove()
   }
   const submit = (e) => {
-    // setArr((prev) => [...arr, { name: todo, status: false }])
-    //   setArr([...arr, todo])
     console.log(arr)
     setIndex(index + 1)
 
@@ -81,8 +60,6 @@ const Phase1 = () => {
     console.log(arr, arr[x][0]["id"], e, "der")
     let userId = arr[x][0]["id"]
     const newTodos = arr.filter((item) => item !== arr[e])
-    // let userRef = firebasfirebaseconfigeConfig.database.ref("todolist/" + userId)
-    // userRef.remove()
     setArr(newTodos)
     handleRemove(userId)
   }
@@ -98,7 +75,6 @@ const Phase1 = () => {
   console.log(arr)
   return (
     <div>
-      {/* <Navbar /> */}
       <Wrapper>
         <div className="h-100 w-full flex items-center justify-center bg-green-900-lightest font-sans">
           <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
@@ -161,7 +137,6 @@ const Phase1 = () => {
           </div>
         </div>
       </Wrapper>
-      {/* <Footer></Footer> */}
     </div>
   )
 }
