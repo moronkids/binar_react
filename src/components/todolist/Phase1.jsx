@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react"
 import Wrapper from "../../components/Layout"
 import axios from "../../axios"
 import { db } from "../../firebase/FireBaseIndex"
-import { dataJson } from "./Json"
 import {
   TrashOutline,
   CheckOutline,
@@ -15,33 +14,22 @@ const Phase1 = () => {
   require("firebase/database")
   const [todo, setTodo] = useState("")
   const [arr, setArr] = useState(null)
-  const [index, setIndex] = useState(0)
   const [todoEdit, setTodoEdit] = useState("") //pengganti setState
-  const inputRef = useRef("tes")
+
   const handleChange = (e, x = null) => {
     if (x != null) {
       const { name, value } = e.target
       setTodoEdit(value)
-      console.log(todoEdit)
     } else {
       const { name, value } = e.target
       setTodo(value)
     }
-    // const { name, value } = e.target
-    // setTodo(value)
-    // console.log(inputRef)
   }
 
   const updateInput = (e, x = null) => {
-    console.log(x, "isi")
     if (x !== null) {
-      // const change = [...arr]
-      // change[e]["edited"] = !change[e]["edited"]
-      // setArr(change)
-      // console.log(change)
-
       const change = [...arr]
-      console.log(change[e])
+
       change[e]["edited"] = !change[e]["edited"]
       let userRef = db.ref("todolist/" + change[e][0]["id"])
       userRef.update({ status: change[e][1]["edited"] })
@@ -50,19 +38,11 @@ const Phase1 = () => {
       const change = [...arr]
       change[e][1]["checkbox"] = !change[e][1]["checkbox"]
       setArr(change)
-      console.log(change)
-
-      // const change = [...arr]
-      // console.log(change[e])
-      // change[e]["checkbox"] = !change[e]["checkbox"]
-      // let userRef = db.ref("todolist/" + change[e][0]["id"])
-      // userRef.update({ status: change[e][1]["checkbox"] })
-      // setArr(change)
     }
   }
   useEffect(async () => {
     const result = await axios.get("/todolist.json")
-    console.log(result, "axios")
+
     if (result.data !== null) {
       var arrx = await Object.keys(result.data).map((key) => [
         { id: key },
@@ -78,34 +58,32 @@ const Phase1 = () => {
     setArr(arrx)
   }
   const handleRemove = async (x) => {
-    console.log(x, x[1], "test")
     if (Array.isArray(x) && x[1] != undefined) {
       x.forEach(async (val, i, x) => {
-        console.log(val, "array")
         let userRef = db.ref("todolist/" + val[0]["id"])
         await userRef.remove()
       })
     } else {
-      let userRef = db.ref("todolist/" + x[0][0]["id"])
-      userRef.remove()
+      if (x[0][0]["id"] == undefined) {
+        let userRef = db.ref("todolist/" + x)
+        userRef.remove()
+      } else {
+        let userRef = db.ref("todolist/" + x[0][0]["id"])
+        userRef.remove()
+      }
     }
   }
   const submit = (e = null) => {
     if (e !== null) {
       const change = [...arr]
-      console.log(todoEdit, change[e][1]["name"], "edit")
+
       change[e][1]["name"] = todoEdit
       let userRef = db.ref("todolist/" + change[e][0]["id"])
       userRef.update({ name: change[e][1]["name"] })
       setArr(change)
-      // const change = [...arr]
-      // change[e]["name"] = todoEdit
-      // setArr(change)
     } else {
       let copy = JSON.parse(JSON.stringify(todo))
       setTodo("")
-      // e.preventDefault()/
-      // e.preventDefault()
       const todox = {
         name: copy,
         status: false,
@@ -118,36 +96,14 @@ const Phase1 = () => {
           recall(todox)
         })
         .catch((error) => {
-          console.log(error)
           alert("error")
         })
-      // setArr((prev) => [...arr, { name: todo, status: false }])
-      // setIndex(index + 1)
     }
-    // let copy = JSON.parse(JSON.stringify(todo))
-    // setTodo("")
-    // e.preventDefault()
-    // const todox = {
-    //   name: copy,
-    //   status: false,
-    // }
-    // axios
-    //   .post("/todolist.json", todox)
-    //   .then((response) => {
-    //     recall(todox)
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //     alert("error")
-    //   })
   }
   const removeKey = async (e) => {
     if (e == "checked") {
-      console.log(arr, e, "checked")
       const newTodos = await arr.filter((item, i) => item[1]["checkbox"] !== true)
       const arrID = await arr.filter((item, i) => item[1]["checkbox"] === true)
-
-      console.log(newTodos)
       setArr(newTodos)
       handleRemove(arrID)
     } else {
@@ -155,27 +111,19 @@ const Phase1 = () => {
       const newTodos = arr.filter((item) => item !== arr[e])
       setArr(newTodos)
       handleRemove(userId)
-      // const newTodos = await arr.filter((item) => item !== arr[e])
-      // setArr(newTodos)
     }
-    // console.log(arr, arr[x][0]["id"], e, "der")
-    // let userId = arr[x][0]["id"]
-    // const newTodos = arr.filter((item) => item !== arr[e])
-    // setArr(newTodos)
-    // handleRemove(userId)
   }
 
   const status = (e, x) => {
     let change = [...arr]
-    console.log(arr, change[e][1]["status"], "0")
+
     change[e][1]["status"] = !change[e][1]["status"]
     let userRef = db.ref("todolist/" + change[e][0]["id"])
     userRef.update({ status: change[e][1]["status"] })
-    console.log(arr, change[e][1]["status"], "1")
+
     setArr(change)
-    console.log(arr, change[e][1]["status"], "2")
   }
-  console.log(arr)
+
   return (
     <Wrapper>
       {" "}
@@ -216,7 +164,6 @@ const Phase1 = () => {
               {arr !== null
                 ? Object.keys(arr).map((keyName, i) => (
                     <>
-                      {console.log(keyName, i, "map")}
                       <div
                         key={arr[keyName][1]["name"] + "_" + i}
                         className="flex mb-4 items-center"
