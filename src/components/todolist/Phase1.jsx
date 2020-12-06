@@ -14,9 +14,7 @@ const Phase1 = () => {
   require("firebase/auth")
   require("firebase/database")
   const [todo, setTodo] = useState("")
-  const [arr, setArr] = useState([
-    [{ id: 1 }, { name: "sulis", status: true, checkbox: true, edited: false }],
-  ])
+  const [arr, setArr] = useState(null)
   const [index, setIndex] = useState(0)
   const [todoEdit, setTodoEdit] = useState("") //pengganti setState
   const inputRef = useRef("tes")
@@ -81,21 +79,19 @@ const Phase1 = () => {
   }
   const handleRemove = async (x) => {
     console.log(x, x[1], "test")
-    if (Array.isArray(x) && x.length > 2) {
+    if (Array.isArray(x) && x[1] != undefined) {
       x.forEach(async (val, i, x) => {
         console.log(val, "array")
         let userRef = db.ref("todolist/" + val[0]["id"])
         await userRef.remove()
       })
     } else {
-      let userRef = db.ref("todolist/" + x)
+      let userRef = db.ref("todolist/" + x[0][0]["id"])
       userRef.remove()
     }
   }
   const submit = (e = null) => {
     if (e !== null) {
-      const todox = [...arr]
-
       const change = [...arr]
       console.log(todoEdit, change[e][1]["name"], "edit")
       change[e][1]["name"] = todoEdit
@@ -217,90 +213,92 @@ const Phase1 = () => {
             </div>
 
             <div>
-              {Object.keys(arr).map((keyName, i) => (
-                <>
-                  {console.log(keyName, i, "map")}
-                  <div
-                    key={arr[keyName][1]["name"] + "_" + i}
-                    className="flex mb-4 items-center"
-                  >
-                    <input
-                      key={arr[keyName][1]["name"] + "_" + i}
-                      onClick={() => updateInput(i)}
-                      type="checkbox"
-                      className="form-checkbox h-5 w-5 text-pink-600"
-                      defaultChecked={arr[keyName][1]["checkbox"]}
-                    />
-                    <span class="ml-2 text-gray-700"></span>
-
-                    {arr[keyName][1]["status"] ? (
-                      <p
-                        onClick={() => updateInput(i, "edit")}
-                        className="cursor-pointer w-full line-through text-green-400 "
+              {arr !== null
+                ? Object.keys(arr).map((keyName, i) => (
+                    <>
+                      {console.log(keyName, i, "map")}
+                      <div
+                        key={arr[keyName][1]["name"] + "_" + i}
+                        className="flex mb-4 items-center"
                       >
-                        {arr[keyName][1]["name"]}
-                      </p>
-                    ) : (
-                      <p
-                        onClick={() => updateInput(i, "edit")}
-                        className="cursor-pointer w-full text-grey-darkest"
-                      >
-                        {arr[keyName][1]["name"]}
-                      </p>
-                    )}
+                        <input
+                          key={arr[keyName][1]["name"] + "_" + i}
+                          onClick={() => updateInput(i)}
+                          type="checkbox"
+                          className="form-checkbox h-5 w-5 text-pink-600"
+                          defaultChecked={arr[keyName][1]["checkbox"]}
+                        />
+                        <span class="ml-2 text-gray-700"></span>
 
-                    <button
-                      onClick={() => status(i)}
-                      className="focus:outline-none flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-400 border-green hover:bg-green-400"
-                    >
-                      {/* {arr[keyName]["status"] ? "Done" : "unDone"} */}
-                      {arr[keyName][1]["status"] ? (
-                        <CheckOutline className="w-6 "></CheckOutline>
-                      ) : (
-                        <XOutline className="w-6 "></XOutline>
-                      )}
-                      {/* <CheckOutline className="w-6"></CheckOutline> */}
-                    </button>
-                    <button
-                      onClick={() => removeKey(i)}
-                      className="focus:outline-none flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
-                    >
-                      <TrashOutline className="w-6"></TrashOutline>
-                    </button>
-                  </div>
-                  {arr[keyName]["edited"] ? (
-                    <div className="mb-3 flex transition ease-in-out duration-700">
-                      <label class="inline-block w-full">
-                        <span class="text-gray-700">Edit : </span>
-                        <textarea
-                          name="todoText"
-                          onChange={(e) => {
-                            handleChange(e, "edited")
-                          }}
-                          placeholder="Todo Text"
-                          // value={todo}
-                          className="form-textarea focus:outline-none focus:ring focus:border-blue-300 shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
-                          rows="3"
-                          placeholder="Enter some long form content."
-                        >
-                          {arr[keyName][1]["name"]}
-                        </textarea>
-                      </label>
+                        {arr[keyName][1]["status"] ? (
+                          <p
+                            onClick={() => updateInput(i, "edit")}
+                            className="cursor-pointer w-full line-through text-green-400 "
+                          >
+                            {arr[keyName][1]["name"]}
+                          </p>
+                        ) : (
+                          <p
+                            onClick={() => updateInput(i, "edit")}
+                            className="cursor-pointer w-full text-grey-darkest"
+                          >
+                            {arr[keyName][1]["name"]}
+                          </p>
+                        )}
 
-                      <span className="mt-3 flex ">
                         <button
-                          onClick={() => {
-                            submit(keyName), updateInput(i, "edit")
-                          }}
-                          className="animate-bounce focus:outline-none flex-no-shrink my-auto p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
+                          onClick={() => status(i)}
+                          className="focus:outline-none flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-400 border-green hover:bg-green-400"
                         >
-                          <PencilOutline className="w-6"></PencilOutline>
+                          {/* {arr[keyName]["status"] ? "Done" : "unDone"} */}
+                          {arr[keyName][1]["status"] ? (
+                            <CheckOutline className="w-6 "></CheckOutline>
+                          ) : (
+                            <XOutline className="w-6 "></XOutline>
+                          )}
+                          {/* <CheckOutline className="w-6"></CheckOutline> */}
                         </button>
-                      </span>
-                    </div>
-                  ) : null}
-                </>
-              ))}
+                        <button
+                          onClick={() => removeKey(i)}
+                          className="focus:outline-none flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
+                        >
+                          <TrashOutline className="w-6"></TrashOutline>
+                        </button>
+                      </div>
+                      {arr[keyName]["edited"] ? (
+                        <div className="mb-3 flex transition ease-in-out duration-700">
+                          <label class="inline-block w-full">
+                            <span class="text-gray-700">Edit : </span>
+                            <textarea
+                              name="todoText"
+                              onChange={(e) => {
+                                handleChange(e, "edited")
+                              }}
+                              placeholder="Todo Text"
+                              // value={todo}
+                              className="form-textarea focus:outline-none focus:ring focus:border-blue-300 shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker"
+                              rows="3"
+                              placeholder="Enter some long form content."
+                            >
+                              {arr[keyName][1]["name"]}
+                            </textarea>
+                          </label>
+
+                          <span className="mt-3 flex ">
+                            <button
+                              onClick={() => {
+                                submit(keyName), updateInput(i, "edit")
+                              }}
+                              className="animate-bounce focus:outline-none flex-no-shrink my-auto p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
+                            >
+                              <PencilOutline className="w-6"></PencilOutline>
+                            </button>
+                          </span>
+                        </div>
+                      ) : null}
+                    </>
+                  ))
+                : null}
             </div>
           </div>
         </div>
