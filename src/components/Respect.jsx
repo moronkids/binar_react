@@ -34,7 +34,7 @@ const Respect = () => {
   `
   return (
     <Fragment>
-      <Navbar></Navbar>
+
       <Body>
         <Card>
           <H1>Title Here</H1>
@@ -45,7 +45,7 @@ const Respect = () => {
           </p>
         </Card>
       </Body>
-      <Footer></Footer>
+
     </Fragment>
   )
 }

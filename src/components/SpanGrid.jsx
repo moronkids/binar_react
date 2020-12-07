@@ -36,7 +36,7 @@ const SpanGrid = () => {
   `
   return (
     <React.Fragment>
-      <Navbar></Navbar>
+
       <Body>
         {/**bukan body element html, tapi ini sekedar penamaan component */}
         <DivSpan12>Span 12</DivSpan12>
@@ -44,7 +44,7 @@ const SpanGrid = () => {
         <DivSpan4>Span 4</DivSpan4>
         <DivSpan2>Span 2</DivSpan2>
       </Body>
-      <Footer></Footer>
+   
     </React.Fragment>
   )
 }

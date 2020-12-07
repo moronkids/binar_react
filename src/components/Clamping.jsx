@@ -5,7 +5,7 @@ import Footer from "../components/Footer"
 const Clamping = () => {
   return (
     <Fragment>
-      <Navbar></Navbar>
+  
       <div className={styles.body}>
         <div className={styles.card}>
           <h1 className={styles.h1}>Title Here</h1>
@@ -23,7 +23,7 @@ const Clamping = () => {
           </p>
         </div>
       </div>
-      <Footer></Footer>
+
     </Fragment>
   )
 }

@@ -21,14 +21,14 @@ const Ram = () => {
   `
   return (
     <div>
-      <Navbar></Navbar>
+
       <Body>
         <Div>1</Div>
         <Div>2</Div>
         <Div>3</Div>
         <Div>4</Div>
       </Body>
-      <Footer></Footer>
+
     </div>
   )
 }

@@ -22,13 +22,13 @@ const Pancake = () => {
   `
   return (
     <div>
-      <Navbar></Navbar>
+
       <DivParent>
         <DivChild>1</DivChild>
         <DivChild>2</DivChild>
         <DivChild>3</DivChild>
       </DivParent>
-      <Footer></Footer>
+     
     </div>
   )
 }

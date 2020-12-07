@@ -34,7 +34,7 @@ const Stack = () => {
   `
   return (
     <>
-      <Navbar></Navbar>
+
       <Body>
         <Header>
           <h1>Header.com</h1>
@@ -42,7 +42,7 @@ const Stack = () => {
         <Main></Main>
         <Footer>Footer Content — Header.com 2020</Footer>
       </Body>
-      <Footer></Footer>
+
     </>
   )
 }

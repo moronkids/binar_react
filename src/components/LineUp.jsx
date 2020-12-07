@@ -38,7 +38,7 @@ const LineUp = () => {
   `
   return (
     <Fragment>
-      <Navbar></Navbar>
+
       <Body>
         <Card>
           <H1>Title - Card 1</H1>
@@ -56,7 +56,7 @@ const LineUp = () => {
           <Visual></Visual>
         </Card>
       </Body>
-      <Footer></Footer>
+  
     </Fragment>
   )
 }

@@ -6,7 +6,7 @@ import Footer from "../components/Footer"
 const Challenge2 = () => {
   return (
     <div>
-      <Navbar></Navbar>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 container content-center">
         <Link to="/challenge2/1">01. List using UL</Link>
         <br />
@@ -15,7 +15,7 @@ const Challenge2 = () => {
         <Link to="/challenge2/3">03. Child Components Practice</Link>
         <br />
       </div>
-      <Footer></Footer>
+   
     </div>
   )
 }

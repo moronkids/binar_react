@@ -26,7 +26,7 @@ const Sidebar = () => {
   `
   return (
     <Fragment>
-      <Navbar></Navbar>
+
       <Body>
         <DivSidebar>
           Min: 150px
@@ -39,7 +39,7 @@ const Sidebar = () => {
           nulla! Natus, iure eveniet ex iusto tempora animi quibusdam porro?
         </PContent>
       </Body>
-      <Footer></Footer>
+  
     </Fragment>
   )
 }

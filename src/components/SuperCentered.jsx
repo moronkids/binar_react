@@ -28,11 +28,11 @@ const SuperCentered = () => {
   `
   return (
     <div>
-      <Navbar></Navbar>
+
       <DivParent>
         <DivChild>:)</DivChild>
       </DivParent>
-      <Footer></Footer>
+
     </div>
   )
 }

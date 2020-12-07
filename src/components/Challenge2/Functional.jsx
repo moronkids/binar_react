@@ -4,7 +4,7 @@ import Footer from "../../components/Footer"
 const Functional = () => {
   return (
     <div>
-      <Navbar />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 container content-center">
         <h1>Sulistyo Ardani</h1>
         <br />
@@ -41,7 +41,7 @@ const Functional = () => {
           <li>9. Gamol Studio</li>
         </ul>
       </div>
-      <Footer />
+
     </div>
   )
 }

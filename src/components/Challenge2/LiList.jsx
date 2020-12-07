@@ -4,7 +4,7 @@ import Footer from "../../components/Footer"
 const LiList = () => {
   return (
     <div>
-      <Navbar />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 container content-center">
         <ul>
           <li>1. React</li>
@@ -22,7 +22,7 @@ const LiList = () => {
           <li>9. React Router Dom</li>
         </ul>
       </div>
-      <Footer />
+   
     </div>
   )
 }

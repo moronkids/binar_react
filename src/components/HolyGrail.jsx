@@ -54,7 +54,7 @@ const HolyGrail = () => {
 
   return (
     <Fragment>
-      <Navbar></Navbar>
+
       <Body>
         <Header>
           <h1>Header.com</h1>
@@ -64,7 +64,7 @@ const HolyGrail = () => {
         <RightSidebar></RightSidebar>
         <Footer>Footer Content — Header.com 2020</Footer>
       </Body>
-      <Footer></Footer>
+
     </Fragment>
   )
 }

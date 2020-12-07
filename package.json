@@ -12,6 +12,7 @@
     "firebase": "^8.1.1",
     "postcss": "^7.0.35",
     "react": "^17.0.1",
+    "react-clickoutside-component": "^1.1.2",
     "react-dom": "^17.0.1",
     "react-loading-overlay": "^1.0.1",
     "react-overlay-loading": "^1.0.3",
