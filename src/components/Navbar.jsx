@@ -542,7 +542,7 @@ const Navbar = () => {
           </div>
 
           <div
-            onBlur={(e) => togglex(setToggleburger(!toggleburger))}
+            // onBlur={(e) => togglex(setToggleburger(!toggleburger))}
             className={
               toggleburger
                 ? "absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"

@@ -23,7 +23,10 @@ const Home = (props) => {
     // <Body>
     <div>
       <Navbar></Navbar>
-      <Wrapper className="max-w-7xl mx-auto px-4 sm:px-6 container content-center">
+      <Wrapper
+        className="max-w-7xl mx-auto px-4 sm:px-6 container content-center text-gray-600 text-justify
+      "
+      >
         {/* <Link to="/challange1">01. Challange 1</Link>
         <br />
         <Link to="/challange2">02. Challange 2</Link>

@@ -4,7 +4,7 @@ import SignInx from './pages/SignIn'
 import Home from './pages/Home' // home -> menjadi sebuah component
 import './App.css';
 import { firebaseAuth } from './Provider/AuthProvider';
-import { ClickOutside } from "reactjs-click-outside"
+
 // importpages
 import SuperCentered from './components/SuperCentered';
 import Pancake from './components/Pancake';
@@ -23,6 +23,8 @@ import LiList from './components/Challenge2/LiList';
 import Functional from './components/Challenge2/Functional';
 import TodoList1 from './components/todolist/Phase1';
 import Layout from './components/Layout'
+import About from './components/blog/about'
+import Homey from './components/blog/home'
 function App() {
   const { token } = useContext(firebaseAuth); //destructuring
   // if ("spinner" in localStorage) {
@@ -31,9 +33,9 @@ function App() {
   // }
 console.log(token, "test")
   return (
-    
-      <Layout>
-        <Switch>
+
+    <Layout>
+    <Switch>
           {" "}
           {/* ini gaya penulisan dari react router dom, yang memumngkinkan agar route bisa berjalan* /}
         {/* route allows you to render by url path */}
@@ -43,7 +45,7 @@ console.log(token, "test")
             render={(props) =>
               token === null && !("token" in localStorage) ? <SignInx /> : <Home />
             }
-          />
+            />
           {/* <Route exact path='/signin' component={SignInx} /> */}
           {/* <Route exact path='/home' component={Home} /> */}
           <Route exact path="/challange1" render={(props) => <Challenge1 />}></Route>
@@ -75,6 +77,8 @@ console.log(token, "test")
           <Route exact path="/8" render={(props) => <LineUp />}></Route>
           <Route exact path="/9" render={(props) => <Clamping />}></Route>
           <Route exact path="/10" render={(props) => <Respect />}></Route>
+          <Route exact path="/about" render={(props) => <About />}></Route>
+          <Route exact path="/home" render={(props) => <Homey />}></Route>
         </Switch>
       </Layout>
 

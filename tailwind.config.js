@@ -9,7 +9,14 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        "-10": "-10",
+      },
+      left :{
+        "-5.5": "-5.5"
+      }
+    },
   },
   variants: {
     extend: {},
