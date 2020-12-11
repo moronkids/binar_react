@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 export const overlayProvider = React.createContext()
 const OverlayProvider = (props) => {
     const [spinner, setSpinner] = useState(true)
-    if ("spinner" in localStorage) {
-        setSpinner(false)
-        if (spinner) {
-            localStorage.removeItem("spinner")
-        }
-    }
+
 
 
     return (

@@ -22,51 +22,64 @@ const Phase1 = () => {
     }
   }
 
-  const submit = (e = null) => {
+  const submit = async (e = null) => {
     if (e !== null) {
       const change = [...arr]
       change[e]["name"] = todoEdit
+      await localStorage.setItem("json", JSON.stringify(change))
       setArr(change)
     } else {
-      setArr((prev) => [...arr, { name: todo, status: false }])
-      setIndex(index + 1)
+      const data = [...arr, { name: todo, status: false }]
+      console.log(data, "debug")
+      await localStorage.setItem("json", JSON.stringify(data))
+      // setArr(JSON.parse(JSON.stringify(dataJson)))
+      setArr(data)
+      // setIndex(index + 1)
     }
   }
   const removeKey = async (e) => {
     if (e == "checked") {
       console.log(arr, "checked")
       const newTodos = await arr.filter((item, i) => item["checkbox"] !== true)
+      await localStorage.setItem("json", JSON.stringify(newTodos))
       console.log(newTodos)
       setArr(newTodos)
     } else {
       const newTodos = await arr.filter((item) => item !== arr[e])
+      await localStorage.setItem("json", JSON.stringify(newTodos))
       setArr(newTodos)
     }
   }
-  const updateInput = (e, x = null) => {
+  const updateInput = async (e, x = null) => {
     if (x !== null) {
       const change = [...arr]
       change[e]["edited"] = !change[e]["edited"]
+      await localStorage.setItem("json", JSON.stringify(change))
       setArr(change)
       console.log(change)
     } else {
       const change = [...arr]
       change[e]["checkbox"] = !change[e]["checkbox"]
+      await localStorage.setItem("json", JSON.stringify(change))
       setArr(change)
       console.log(change)
     }
   }
   useEffect(async () => {
     console.log("useeffect")
-    if (arr.length <= 0) {
+    if ("json" in localStorage) {
+      setArr(JSON.parse(localStorage.getItem("json")))
+    } else if (arr.length <= 0) {
       console.log(JSON.stringify(dataJson), dataJson, "data")
-      setArr(JSON.parse(JSON.stringify(dataJson)))
+      await localStorage.setItem("json", JSON.stringify(dataJson))
+      setArr(JSON.parse(localStorage.getItem("json")))
     }
   }, [])
 
-  const status = (e) => {
+  const status = async (e) => {
     const change = [...arr]
     change[e]["status"] = !change[e]["status"]
+    await localStorage.setItem("json", JSON.stringify(change))
     setArr(change)
   }
   return (

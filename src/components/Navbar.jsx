@@ -4,7 +4,9 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 import Footer from "../components/Footer"
 import ClickOutside from "react-clickoutside-component"
+import { firebaseAuth } from "../Provider/AuthProvider"
 const Navbar = () => {
+  const { handleSignout } = useContext(firebaseAuth)
   const [toggle, setToggle] = useState(false)
   const [togglemore, setToggleMore] = useState(false)
   const [toggleburger, setToggleburger] = useState(false)
@@ -28,7 +30,7 @@ const Navbar = () => {
   }
   return (
     <ClickOutside onClickOutside={(e) => handleClickOutside(e)}>
-      <div className="sticky top-0">
+      <div className="sticky top-0 z-10">
         <div className="relative bg-white ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <Body className="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 border-0">
@@ -316,12 +318,9 @@ const Navbar = () => {
                 >
                   Pricing
                 </a>
-                <a
-                  href="#"
-                  className="text-base font-medium text-gray-500 hover:text-gray-900"
-                >
-                  Docs
-                </a>
+                <div className="text-base font-medium text-gray-500 hover:text-gray-900">
+                  <Link to="/">Portofolio</Link>
+                </div>
 
                 <div className="relative">
                   <button
@@ -356,35 +355,33 @@ const Navbar = () => {
                   >
                     <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                       <div className="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                        <a
-                          href="#"
-                          className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
-                        >
-                          <svg
-                            className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            aria-hidden="true"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
-                            />
-                          </svg>
-                          <div className="ml-4">
-                            <p className="text-base font-medium text-gray-900">
-                              Help Center
-                            </p>
-                            <p className="mt-1 text-sm text-gray-500">
-                              Get all of your questions answered in our forums or
-                              contact support.
-                            </p>
+                        <Link to="/about">
+                          <div className="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                            <svg
+                              className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                              />
+                            </svg>
+                            <div className="ml-4">
+                              <p className="text-base font-medium text-gray-900">
+                                About
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500">
+                                Know the owner of Web
+                              </p>
+                            </div>
                           </div>
-                        </a>
+                        </Link>
 
                         <a
                           href="#"
@@ -525,18 +522,20 @@ const Navbar = () => {
                 </div>
               </nav>
               <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                <a
+                {/* <a
                   href="#"
                   className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                 >
                   Sign in
-                </a>
-                <a
-                  href="#"
-                  className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                >
-                  Sign up
-                </a>
+                </a> */}
+                {"token" in localStorage ? (
+                  <div
+                    onClick={handleSignout}
+                    className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Sign out
+                  </div>
+                ) : null}
               </div>
             </Body>
           </div>

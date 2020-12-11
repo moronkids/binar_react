@@ -6,13 +6,12 @@ import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 // import styled from "styled-components"
 
+const Wrapper = styled.div`
+  & {
+    min-height: calc(100vh - 33.57972544878564vh);
+  }
+`
 const Home = (props) => {
-  const Wrapper = styled.div`
-    & {
-      min-height: calc(100vh - 33.57972544878564vh);
-    }
-  `
-
   // const spinner = useContext(overlayProvider)
   // console.log(spinner, "test")
   // if (spinner) {
@@ -27,6 +26,8 @@ const Home = (props) => {
       <Link to="/challange2">02. Challange 2</Link>
       <br />
       <Link to="/challange3">03. Challange 3</Link>
+      <br />
+      <Link to="/challange4">04. Challange 4</Link>
     </div>
   )
 }

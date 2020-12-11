@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { authMethods } from '../firebase/AuthMethods'
-
+import { useHistory } from "react-router-dom"
 export const firebaseAuth = React.createContext()
 
 const AuthProvider = (props) => {
+    const history = useHistory()
     const initState = { email: '', password: '' }
     const [inputs, setInputs] = useState(initState)
     const [errors, setErrors] = useState([])
@@ -24,8 +25,9 @@ const AuthProvider = (props) => {
         // made signup signin
         authMethods.signin(inputs.email, inputs.password, setErrors, setToken)
         // if (token === null) {
-            localStorage.setItem('spinner', true);
-        // }
+            // localStorage.setItem('spinner', true);
+        // }history.push("/home");
+
         // else {
             // console.log("bisa masuk")
             // localStorage.removeItem('spinner');
@@ -35,8 +37,11 @@ const AuthProvider = (props) => {
 
     const handleSignout = () => {
         authMethods.signout(setErrors, setToken)
+        if (!"token" in localStorage) {
+          console.log("masuk")
+          history.push("/")
+        }
     }
-    console.log(token, "ini token")
 
     return (
         <firebaseAuth.Provider

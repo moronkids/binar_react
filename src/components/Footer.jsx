@@ -30,7 +30,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex items-center justify-between py-4">
-          <p className="text-blue-500">All rights reserved</p>
+          {/* <p className="text-blue-500">All rights reserved</p>
           <p className="inline-flex text-blue-500 px-2 pt-6">
             Built with
             <svg
@@ -47,7 +47,7 @@ const Footer = () => {
               />
             </svg>
             by Mohammed Ibrahim(Jermine Junior).
-          </p>
+          </p> */}
           <div className="flex items-center">
             <a href="#">
               <svg
