@@ -8,10 +8,9 @@ import {
   PencilOutline,
 } from "@graywolfai/react-heroicons"
 const Phase1 = () => {
-  const [todo, setTodo] = useState("") //pengganti setState
-  const [todoEdit, setTodoEdit] = useState("") //pengganti setState
+  const [todo, setTodo] = useState("") //pengganti setState -> khusus buat todo list baru/ new
+  const [todoEdit, setTodoEdit] = useState("") //pengganti setState -> khusus buat todo list waktu nampung/ edit
   const [arr, setArr] = useState([]) //pengganti setState
-  const [index, setIndex] = useState(0) //pengganti setState
   const handleChange = (e, x = null) => {
     if (x != null) {
       const { name, value } = e.target
@@ -121,6 +120,7 @@ const Phase1 = () => {
               <div>
                 <div
                   key={arr[keyName]["name"] + "_" + i}
+                  // key={i}
                   className="flex mb-4 items-center"
                 >
                   <input

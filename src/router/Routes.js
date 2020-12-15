@@ -31,6 +31,8 @@ import ListUser from "../components/fetch/ListUser"
 import fetchAll from "../components/fetch/fetchRandom"
 import fetchGerman from "../components/fetch/fetchGermany"
 import fetchTurkey from "../components/fetch/fetchTurkey"
+import fetchGithub from "../components/fetch/fetchGithub"
+import Redux from "../components/ReduxLearn/index"
 const Routes = () => {
   const { token } = useContext(firebaseAuth) //destructuring
   console.log(token, "TOKEN dari routes")
@@ -268,6 +270,22 @@ const Routes = () => {
           path="/challenge4/4"
           layout={Login}
           component={fetchAll}
+        />
+        <AppRoute
+          exact
+          token={token}
+          auth={UserIn}
+          path="/challenge4/5"
+          layout={Login}
+          component={fetchGithub}
+        />
+        <AppRoute
+          exact
+          token={token}
+          auth={Guest}
+          path="/redux"
+          layout={Login}
+          component={Redux}
         />
       </Switch>
     </section>
