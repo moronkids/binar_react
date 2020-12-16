@@ -33,6 +33,7 @@ import fetchGerman from "../components/fetch/fetchGermany"
 import fetchTurkey from "../components/fetch/fetchTurkey"
 import fetchGithub from "../components/fetch/fetchGithub"
 import Redux from "../components/ReduxLearn/index"
+import Redux2 from "../components/ReduxCounter/index"
 const Routes = () => {
   const { token } = useContext(firebaseAuth) //destructuring
   console.log(token, "TOKEN dari routes")
@@ -286,6 +287,14 @@ const Routes = () => {
           path="/redux"
           layout={Login}
           component={Redux}
+        />
+        <AppRoute
+          exact
+          token={token}
+          auth={Guest}
+          path="/redux2"
+          layout={Login}
+          component={Redux2}
         />
       </Switch>
     </section>
