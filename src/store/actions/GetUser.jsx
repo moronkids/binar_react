@@ -12,11 +12,12 @@ export const getUserData = (e) => async (dispatch) => {
     console.log(error)
   }
 }
+
 export const getCounter = (e) => async (dispatch) => {
   console.log("masuk counter")
   try {
     dispatch({
-      type: COUNTER_DATA,
+      type: COUNTER_DATAX,
       payload: e,
     })
   } catch (error) {
