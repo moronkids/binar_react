@@ -1,4 +1,12 @@
 import React, { useState, useRef, useEffect } from "react"
+import { connect } from "react-redux"
+import PropTypes from "prop-types"
+import {
+  GET_TODOS_REQUESTED,
+  DELETE_TODO_REQUESTED,
+  SET_TODO_TITLE_REQUESTED,
+  CREATE_TODO_REQUESTED,
+} from "../../redux/actions/todo-action"
 import Wrapper from "../../components/Layout"
 import axios from "../../axios"
 import { db } from "../../firebase/FireBaseIndex"
@@ -8,7 +16,8 @@ import {
   XOutline,
   PencilOutline,
 } from "@graywolfai/react-heroicons"
-const Phase1 = () => {
+const Phase1 = ({ todos, getTodos, deleteTodo, createTodo }) => {
+  // console.log(props)
   var firebase = require("firebase/app")
   require("firebase/auth")
   require("firebase/database")
@@ -36,20 +45,20 @@ const Phase1 = () => {
       setArr(change)
     } else {
       const change = [...arr]
-      change[e][1]["checkbox"] = !change[e][1]["checkbox"]
+      change[e][1].checkbox = !change[e][1].checkbox
       setArr(change)
     }
   }
   useEffect(async () => {
-    const result = await axios.get("/todolist.json")
-
-    if (result.data !== null) {
-      var arrx = await Object.keys(result.data).map((key) => [
-        { id: key },
-        result.data[key],
-      ])
-      setArr(arrx)
-    }
+    getTodos()
+    // const result = await axios.get("/todolist.json")
+    // if (result.data !== null) {
+    //   var arrx = await Object.keys(result.data).map((key) => [
+    //     { id: key },
+    //     result.data[key],
+    //   ])
+    //   setArr(arrx)
+    // }
   }, [])
 
   const recall = async (e) => {
@@ -58,75 +67,85 @@ const Phase1 = () => {
     setArr(arrx)
   }
   const handleRemove = async (x) => {
-    if (Array.isArray(x) && x[1] != undefined) {
-      x.forEach(async (val, i, x) => {
-        let userRef = db.ref("todolist/" + val[0]["id"])
-        await userRef.remove()
-      })
-    } else {
-      if (x[0][0]["id"] == undefined) {
-        let userRef = db.ref("todolist/" + x)
-        userRef.remove()
-      } else {
-        let userRef = db.ref("todolist/" + x[0][0]["id"])
-        userRef.remove()
-      }
-    }
+    deleteTodo(x)
+    // if (Array.isArray(x) && x[1] != undefined) {
+    //   x.forEach(async (val, i, x) => {
+    //     let userRef = db.ref("todolist/" + val[0]["id"])
+    //     await userRef.remove()
+    //   })
+    // } else {
+    //   if (x[0][0]["id"] == undefined) {
+    //     deleteTodo(x)
+    //     // let userRef = db.ref("todolist/" + x)
+    //     // userRef.remove()
+    //   } else {
+    //     deleteTodo(x[0][0]["id"])
+    //     // let userRef = db.ref("todolist/" + x[0][0]["id"])
+    //     // userRef.remove()
+    //   }
   }
-  const submit = (e = null) => {
-    if (e !== null) {
-      const change = [...arr]
 
-      change[e][1]["name"] = todoEdit
-      let userRef = db.ref("todolist/" + change[e][0]["id"])
-      userRef.update({ name: change[e][1]["name"] })
-      setArr(change)
-    } else {
-      let copy = JSON.parse(JSON.stringify(todo))
-      setTodo("")
-      const todox = {
-        name: copy,
-        status: false,
-        checkbox: false,
-        edited: false,
-      }
-      axios
-        .post("/todolist.json", todox)
-        .then((response) => {
-          recall(todox)
-        })
-        .catch((error) => {
-          alert("error")
-        })
+  const submit = (e = null) => {
+    let copy = JSON.parse(JSON.stringify(todo))
+    //   setTodo("")
+    const todox = {
+      name: copy,
+      status: false,
+      checkbox: false,
+      edited: false,
     }
+    createTodo(todox)
+    // if (e !== null) {
+    //   const change = [...arr]
+    //   change[e][1].name = todoEdit
+    //   let userRef = db.ref("todolist/" + change[e][0]["id"])
+    //   userRef.update({ name: change[e][1].name })
+    //   setArr(change)
+    // } else {
+    //   let copy = JSON.parse(JSON.stringify(todo))
+    //   setTodo("")
+    //   const todox = {
+    //     name: copy,
+    //     status: false,
+    //     checkbox: false,
+    //     edited: false,
+    //   }
+    //   axios
+    //     .post("/todolist.json", todox)
+    //     .then((response) => {
+    //       recall(todox)
+    //     })
+    //     .catch((error) => {
+    //       alert("error")
+    //     })
+    // }
   }
   const removeKey = async (e) => {
     if (e == "checked") {
-      const newTodos = await arr.filter((item, i) => item[1]["checkbox"] !== true)
-      const arrID = await arr.filter((item, i) => item[1]["checkbox"] === true)
-      setArr(newTodos)
+      // const newTodos = await arr.filter((item, i) => item[1].checkbox !== true)
+      const arrID = await arr.filter((item, i) => item[1].checkbox === true)
+      // setArr(newTodos)
       handleRemove(arrID)
     } else {
-      let userId = arr[e][0]["id"]
-      const newTodos = arr.filter((item) => item !== arr[e])
-      setArr(newTodos)
-      handleRemove(userId)
+      // console.log(e, todos.todos[e], "test")
+      // const newTodos = arr.filter((item) => item !== arr[e])
+      // setArr(newTodos)
+      handleRemove(e)
     }
   }
 
   const status = (e, x) => {
     let change = [...arr]
 
-    change[e][1]["status"] = !change[e][1]["status"]
+    change[e][1].status = !change[e][1].status
     let userRef = db.ref("todolist/" + change[e][0]["id"])
-    userRef.update({ status: change[e][1]["status"] })
+    userRef.update({ status: change[e][1].status })
 
     setArr(change)
   }
-
+  console.log(todos, "todo component")
   return (
     <Wrapper>
-      {" "}
       <div>
         <div className="h-100 w-full flex items-center justify-center bg-green-900-lightest font-sans outline-none">
           <div className="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
@@ -159,46 +178,44 @@ const Phase1 = () => {
                 </button>
               </div>
             </div>
-
             <div>
-              {arr !== null
-                ? Object.keys(arr).map((keyName, i) => (
+              {todos.todos != null
+                ? Object.keys(todos.todos).map((keyName, i) => (
                     <>
+                      {console.log(keyName, i, todos.todos[keyName][i], "map")}
                       <div
-                        key={arr[keyName][1]["name"] + "_" + i}
+                        key={todos.todos[keyName]["name"] + "_" + i}
                         className="flex mb-4 items-center"
                       >
                         <input
-                          key={arr[keyName][1]["name"] + "_" + i}
+                          key={todos.todos[keyName].name + "_" + i}
                           onClick={() => updateInput(i)}
                           type="checkbox"
                           className="form-checkbox h-5 w-5 text-pink-600"
-                          defaultChecked={arr[keyName][1]["checkbox"]}
+                          defaultChecked={todos.todos[keyName].checkbox}
                         />
                         <span class="ml-2 text-gray-700"></span>
-
-                        {arr[keyName][1]["status"] ? (
+                        {todos.todos[keyName].status ? (
                           <p
                             onClick={() => updateInput(i, "edit")}
                             className="cursor-pointer w-full line-through text-green-400 "
                           >
-                            {arr[keyName][1]["name"]}
+                            {todos.todos[keyName].name}
                           </p>
                         ) : (
                           <p
                             onClick={() => updateInput(i, "edit")}
                             className="cursor-pointer w-full text-grey-darkest"
                           >
-                            {arr[keyName][1]["name"]}
+                            {todos.todos[keyName].name}
                           </p>
                         )}
-
                         <button
                           onClick={() => status(i)}
                           className="focus:outline-none flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-400 border-green hover:bg-green-400"
                         >
-                          {/* {arr[keyName]["status"] ? "Done" : "unDone"} */}
-                          {arr[keyName][1]["status"] ? (
+                          {/* {arr[keyName].status ? "Done" : "unDone"} */}
+                          {todos.todos[keyName].status ? (
                             <CheckOutline className="w-6 "></CheckOutline>
                           ) : (
                             <XOutline className="w-6 "></XOutline>
@@ -206,13 +223,13 @@ const Phase1 = () => {
                           {/* <CheckOutline className="w-6"></CheckOutline> */}
                         </button>
                         <button
-                          onClick={() => removeKey(i)}
+                          onClick={() => removeKey(keyName)}
                           className="focus:outline-none flex-no-shrink p-2 ml-2 border-2 rounded text-red-400 border-red hover:text-white hover:bg-red-400"
                         >
                           <TrashOutline className="w-6"></TrashOutline>
                         </button>
                       </div>
-                      {arr[keyName]["edited"] ? (
+                      {todos.todos[keyName]["edited"] ? (
                         <div className="mb-3 flex transition ease-in-out duration-700">
                           <label class="inline-block w-full">
                             <span class="text-gray-700">Edit : </span>
@@ -227,7 +244,7 @@ const Phase1 = () => {
                               rows="3"
                               placeholder="Enter some long form content."
                             >
-                              {arr[keyName][1]["name"]}
+                              {todos.todos[keyName].name}
                             </textarea>
                           </label>
 
@@ -253,5 +270,22 @@ const Phase1 = () => {
     </Wrapper>
   )
 }
+Phase1.propTypes = {
+  loading: PropTypes.bool,
+  todos: PropTypes.array,
+  getTodos: PropTypes.func.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+}
+const mapStateToProps = (state) => {
+  return {
+    todos: state.todo,
+  }
+}
 
-export default Phase1
+const mapDispatchToProps = (dispatch) => ({
+  getTodos: () => dispatch({ type: GET_TODOS_REQUESTED }),
+  deleteTodo: (id) => dispatch({ type: DELETE_TODO_REQUESTED, payload: id }),
+  createTodo: (title) => dispatch({ type: CREATE_TODO_REQUESTED, payload: title }),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Phase1)

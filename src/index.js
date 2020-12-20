@@ -6,11 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './Provider/AuthProvider'
 import { BrowserRouter } from 'react-router-dom'
 import OverlayProvider from "./Provider/OverlayProvider"
+import store from "./redux/store" // store ini berisi semua varibel state global
+import { Provider } from "react-redux"
 ReactDOM.render(
   <BrowserRouter>
   <OverlayProvider>
     <AuthProvider>
-      <App />
+      <Provider store={store}>
+      <App/>
+      </Provider>
     </AuthProvider>
   </OverlayProvider>
   </BrowserRouter>,

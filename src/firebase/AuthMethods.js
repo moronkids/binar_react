@@ -13,7 +13,7 @@ export const authMethods = {
                 await localStorage.setItem('token', token)
                 setToken(token)
                 //grab token from local storage and set to state.
-                console.log(res)
+
             })
             .catch(err => {
                 setErrors(prev => ([...prev, err.message]))
@@ -25,8 +25,11 @@ export const authMethods = {
             //everything is almost exactly the same as the function above
             .then(async res => {
                 const token = await Object.entries(res.user)[5][1].b
+                const refreshToken = await res.user.refreshToken
                 //set token to localStorage
+                console.log(res, "login")
                 await localStorage.setItem('token', token)
+                await localStorage.setItem("refreshToken", refreshToken)
 
 
                 setToken(window.localStorage.token)
@@ -36,7 +39,7 @@ export const authMethods = {
             })
     },
     //no need for email and password
-    signout: (setErrors, setToken) => {
+    signout: (setErrors = null, setToken = null) => {
         // signOut is a no argument function
         firebase.auth().signOut().then(res => {
             //remove the token
@@ -46,11 +49,12 @@ export const authMethods = {
         })
             .catch(err => {
                 //there shouldn't every be an error from firebase but just in case
-                setErrors(prev => ([...prev, err.message]))
+                setErrors != null ? setErrors(prev => ([...prev, err.message])) : null;
                 //whether firebase does the trick or not i want my user to do there thing.
                 localStorage.removeItem('token')
-                setToken(null)
+                setToken != null ? setToken(null) : null
                 console.error(err.message)
             })
     },
+
 }
